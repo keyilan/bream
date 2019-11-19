@@ -1,5 +1,5 @@
 # bream
-A standalone single-file (other than images) modern beamer theme for LaTeX
+A standalone three-file (minus images) modern beamer theme for LaTeX.
 
 ## Introduction
 
@@ -10,3 +10,11 @@ This is an ongoing project to create a single theme that suits all of my own nee
 ## Features
 
 It's super basic.
+
+## Files
+
+`preamble.tex` – Everything but the slide contents. All formatting is declared here.
+
+`presentation.tex` – The contents of the presentations
+
+`refrences.bib`
