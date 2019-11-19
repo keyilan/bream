@@ -1,5 +1,5 @@
 # bream 🐟
-A standalone three-file (minus images) modern beamer theme for LaTeX.
+A standalone three-file (minus images) modern beamer theme/template for LaTeX.
 
 ## Introduction
 
