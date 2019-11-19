@@ -1,0 +1,172 @@
+\documentclass[10pt, aspectratio=169]{beamer}
+
+% colour definitions
+\definecolor{textcolor}{RGB}{255, 255, 255}
+\definecolor{titlebar}{HTML}{142A4B}
+\definecolor{bgcolor}{HTML}{243A5B}
+\definecolor{alert}{HTML}{FFD479}
+\definecolor{accent}{HTML}{8CB9F1}
+
+% beamer colours
+\setbeamercolor*{background canvas}{bg=bgcolor}
+\setbeamercolor*{title}{fg=textcolor}
+\setbeamercolor{normal text}{fg=textcolor}
+\setbeamercolor{itemize item}{fg=accent}
+\setbeamercolor{alerted text}{fg=alert}
+\setbeamercolor{frametitle-left}{fg=accent}
+\setbeamercolor{frametitle}{fg=accent}
+\setbeamercolor{palette quaternary}{fg=textcolor}
+\setbeamercolor{titlelike}{parent=palette quaternary}
+\setbeamercolor*{page number in head/foot}{fg=textcolor}
+\setbeamercolor{local structure}{fg=accent}
+\setbeamercolor{bibliography entry author}{fg=textcolor}
+\setbeamercolor{bibliography entry title}{fg=accent} 
+\setbeamercolor{bibliography entry location}{fg=accent} 
+\setbeamercolor{bibliography entry note}{fg=accent}
+
+% trees
+\usepackage{tikz}
+\usetikzlibrary{trees, arrows}
+\usepackage{graphicx}
+\usepackage{tikz-qtree,tikz-qtree-compat}
+\tikzstyle{level 1}=[level distance=2em, sibling distance=0.25cm]
+\tikzstyle{level 2}=[level distance=2em, sibling distance=0.25cm]
+\tikzstyle{level 3}=[level distance=2em, sibling distance=0.25cm]
+\tikzstyle{level 4}=[level distance=2em, sibling distance=0.25cm]
+\tikzstyle{level 5}=[level distance=2em, sibling distance=0.25cm]
+\usepackage[edges]{forest}
+
+% bibliography
+\usepackage[
+	backend=biber,
+	style=authoryear-icomp,
+	sortlocale=en_US,
+	natbib=false,
+	url=false, 
+	doi=true,
+	eprint=false
+]{biblatex}
+\addbibresource{references.bib}
+\renewbibmacro*{title}{ % fixes line breaks
+	\ifboolexpr{
+	test {\iffieldundef{title}}
+	and
+	test {\iffieldundef{subtitle}}
+	}
+	{}
+	{\printtext{
+	\printtext[titlecase]{\usefield{\uline}{title}}
+	\setunit{\subtitlepunct}
+	\printfield[titlecase]{subtitle}}
+	\newunit}
+	\printfield{titleaddon}
+}
+\renewcommand*{\bibfont}{\scriptsize} % small bibliography font size
+
+% main slide wallpaper
+\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth,keepaspectratio]{background}}
+
+% fonts definitions
+\usepackage{fontspec} % loaded by xeCJK
+
+%\usepackage{xeCJK} % cjk fallback
+\newfontfamily\cjk{Noto Sans CJK TC}
+\newfontfamily\jpn{Noto Sans CJK JP Thin}
+\newfontfamily\mmy{Noto Sans Myanmar}
+\newfontfamily\ben{Noto Sans Bengali}
+\newfontfamily\eng{Noto Sans Thin}
+
+\usepackage[CJK]{ucharclasses}
+\setTransitionsForCJK{\jpn}{}
+
+\usepackage{xcolor}
+\setmainfont[
+	Mapping=tex-text,
+	BoldFont=Noto Sans Bold,
+	ItalicFont=Noto Sans Italic
+]{Noto Sans Thin}
+\setsansfont{Noto Sans Thin}
+
+\newfontfamily\tgtermes{TeX Gyre Termes} % small caps fallback
+\makeatletter
+  \begingroup
+    \tgtermes
+    \DeclareFontShape{\f@encoding}{\rmdefault}{m}{sc}{%
+      <-> ssub * \f@family/m/sc}{}
+    \DeclareFontShape{\f@encoding}{\rmdefault}{bx}{sc}{%
+      <-> ssub * \f@family/bx/sc}{}
+  \endgroup
+\makeatother
+
+\linespread{1.3}\selectfont{}
+
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{ulem}
+\usepackage[graphicx]{realboxes}
+
+% beamer fonts
+\setbeamerfont{title}{size=\large}
+\setbeamerfont{subtitle}{size=\large}
+\setbeamerfont{author}{size=\normalsize}
+\setbeamerfont{institute}{size=\scriptsize}
+\setbeamerfont{date}{size=\small}
+\setbeamerfont{frametitle}{size=\normalsize}
+\setbeamerfont{framesubtitle}{size=\small}
+\setbeamerfont{itemize/enumerate body}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
+
+% other beamer settings
+\setbeamertemplate{bibliography item}{}
+\setbeamertemplate{itemize items}[circle]
+\setbeamersize{text margin left=10mm,text margin right=10mm} 
+
+% frame title format
+\setbeamertemplate{frametitle}
+{
+	\vspace{\baselineskip}
+	\strut\textbf{\insertframetitle}\strut
+}
+\setbeamertemplate{navigation symbols}{}
+\defbeamertemplate*{title page}{mytheme}
+{ 
+	\vfill
+		\usebeamerfont{title}\usebeamercolor[fg]{title}\alert{\textbf{\inserttitle}}
+		\par
+		\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle
+		\par
+		\vspace{\baselineskip}
+		\usebeamerfont{author}\usebeamercolor[fg]{author}\textbf{\insertauthor}
+		\par
+		\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute
+		\par
+		\vspace{\baselineskip}
+		\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate
+	\vfill
+}
+
+% footer formatting
+\setbeamertemplate{footline}{%
+  \begin{beamercolorbox}[wd=150mm]{footline}% <- default 3ex
+    \scriptsize \hskip10mm \alert{\inserttitle} \hfill \insertpagenumber \vskip1em
+  \end{beamercolorbox}%
+}
+
+% section slides
+\defbeamertemplate*{section page}{focus}{%
+	\vspace{-5em}
+	\begin{minipage}[b][0.45\paperheight]{\textwidth}
+		\centering
+		\usebeamerfont{sectiontitle}
+		\usebeamercolor[fg]{frametitle}
+		\insertsection
+	\end{minipage}
+}
+\AtBeginSection[]{
+	\begingroup
+	\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth,keepaspectratio]{background-title}}
+		\begin{frame}[plain, noframenumbering]{}
+			\textbf{\large{\sectionpage}}
+		\end{frame}
+ \endgroup 
+}
